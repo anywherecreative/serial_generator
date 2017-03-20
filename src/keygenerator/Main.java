@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 public class Main extends javax.swing.JFrame {
     List<String> keys;
     GenerateKeys generator;
+    Working dia;
     /**
      * Creates new form Main
      */
@@ -365,7 +367,10 @@ public class Main extends javax.swing.JFrame {
             return;
         }
         this.generator = new GenerateKeys(this,numKeys, keyLength, keyChars);
-       
+        dia = new Working(this,true);
+        dia.setVisible(true);
+        
+        
     }//GEN-LAST:event_generateButtonActionPerformed
 
     private void updateUseableChars(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateUseableChars
@@ -554,6 +559,7 @@ public class Main extends javax.swing.JFrame {
         for(String key : this.keys) {
             model.addRow(new Object[]{key});
         }
+        dia.dispose();
    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
