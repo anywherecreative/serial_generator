@@ -23,6 +23,7 @@ public class GenerateKeys extends Thread
     private List<String> keys;
     private Thread t;
     private Main caller;
+    public boolean stop;
     
     /**
      * Generate a new set of keys using default values
@@ -64,6 +65,7 @@ public class GenerateKeys extends Thread
     }
     
    public void run() {
+       this.stop = false;
        Random pos = new Random();
         this.keys = new ArrayList<>();
         String[] choiceArray = this.RandomizeArray(choices.split(""));
@@ -80,6 +82,9 @@ public class GenerateKeys extends Thread
             b++; //sanity check, this should not exceed numKeys*3
             if(b > (numKeys*3)) {
                 System.out.println("Terminating process...");
+                break;
+            }
+            if(stop) {
                 break;
             }
         }

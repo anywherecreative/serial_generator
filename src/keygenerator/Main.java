@@ -25,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Main extends javax.swing.JFrame {
     List<String> keys;
-    GenerateKeys generator;
+    public GenerateKeys generator;
     Working dia;
     /**
      * Creates new form Main
@@ -367,7 +367,7 @@ public class Main extends javax.swing.JFrame {
             return;
         }
         this.generator = new GenerateKeys(this,numKeys, keyLength, keyChars);
-        dia = new Working(this,true);
+        dia = new Working(this,true,this);
         dia.setVisible(true);
         
         

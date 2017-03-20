@@ -14,7 +14,14 @@ public class Working extends javax.swing.JDialog {
     /**
      * Creates new form Working
      */
-    public Working(java.awt.Frame parent, boolean modal) {
+    private Main caller;
+    public Working(java.awt.Frame parent, boolean modal,Main context) {
+        super(parent, modal);
+        this.caller = context;
+        initComponents();
+    }
+    
+     public Working(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -69,7 +76,7 @@ public class Working extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelActionPerformed
-        // TODO add your handling code here:
+       this.caller.generator.stop = true;
     }//GEN-LAST:event_CancelActionPerformed
 
     /**
