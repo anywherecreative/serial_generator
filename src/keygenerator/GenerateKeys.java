@@ -32,7 +32,8 @@ public class GenerateKeys extends Thread
         this.keyLength = DEFAULT_KEY_LENGTH;
         this.choices = DEFAULT_KEY_CHOICES;
         this.caller = caller;
-        Thread t = new Thread (this, "generator");
+        t = new Thread (this, "generator");
+        t.start();
     }
     
      public GenerateKeys(Main caller, int numKeys) {
@@ -40,7 +41,8 @@ public class GenerateKeys extends Thread
         this.keyLength = DEFAULT_KEY_LENGTH;
         this.choices = DEFAULT_KEY_CHOICES;
         this.caller = caller;
-        Thread t = new Thread (this, "generator");
+        t = new Thread (this, "generator");
+         t.start();
     }
     
     public GenerateKeys(Main caller,int numKeys, int keyLength) {
@@ -48,7 +50,8 @@ public class GenerateKeys extends Thread
        this.keyLength = keyLength;
        this.choices = DEFAULT_KEY_CHOICES;
        this.caller = caller;
-       Thread t = new Thread (this, "generator");
+       t = new Thread (this, "generator");
+        t.start();
     }
     
     public GenerateKeys(Main caller,int numKeys, int keyLength, String choices) {
@@ -56,7 +59,8 @@ public class GenerateKeys extends Thread
         this.keyLength = keyLength;
         this.choices = choices;
         this.caller = caller;
-        Thread t = new Thread (this, "generator");
+        t = new Thread (this, "generator");
+         t.start();
     }
     
    public void run() {
