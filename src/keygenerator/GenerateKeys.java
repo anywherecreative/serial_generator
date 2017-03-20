@@ -11,34 +11,55 @@ import java.util.Random;
  * @author Jeff Manning
  * @version 1.0.0
  */
-public class GenerateKeys
+public class GenerateKeys extends Thread 
 {
     public static final int DEFAULT_NUMBER_OF_KEYS = 1000;
     public static final int DEFAULT_KEY_LENGTH = 10;
     public static final String DEFAULT_KEY_CHOICES = "abcdefghijklmnopqrstuvwxyz01234567890";
     
+    private int numKeys = 0;
+    private int keyLength = 0;
+    private String choices = "";
     private List<String> keys;
+    private Thread t;
+    private Main caller;
     
     /**
      * Generate a new set of keys using default values
      */
-    public GenerateKeys() {
-        this.generator(DEFAULT_NUMBER_OF_KEYS,DEFAULT_KEY_LENGTH, DEFAULT_KEY_CHOICES);
+    public GenerateKeys(Main caller) {
+        this.numKeys = DEFAULT_NUMBER_OF_KEYS;
+        this.keyLength = DEFAULT_KEY_LENGTH;
+        this.choices = DEFAULT_KEY_CHOICES;
+        this.caller = caller;
+        Thread t = new Thread (this, "generator");
     }
     
-     public GenerateKeys(int numKeys) {
-        this.generator(numKeys, DEFAULT_KEY_LENGTH, DEFAULT_KEY_CHOICES);
+     public GenerateKeys(Main caller, int numKeys) {
+        this.numKeys = numKeys;
+        this.keyLength = DEFAULT_KEY_LENGTH;
+        this.choices = DEFAULT_KEY_CHOICES;
+        this.caller = caller;
+        Thread t = new Thread (this, "generator");
     }
     
-    public GenerateKeys(int numKeys, int keyLength) {
-        this.generator(numKeys, keyLength, DEFAULT_KEY_CHOICES);
+    public GenerateKeys(Main caller,int numKeys, int keyLength) {
+       this.numKeys = numKeys;
+       this.keyLength = keyLength;
+       this.choices = DEFAULT_KEY_CHOICES;
+       this.caller = caller;
+       Thread t = new Thread (this, "generator");
     }
     
-    public GenerateKeys(int numKeys, int keyLength, String choices) {
-        this.generator(numKeys, keyLength, choices);
+    public GenerateKeys(Main caller,int numKeys, int keyLength, String choices) {
+        this.numKeys = numKeys;
+        this.keyLength = keyLength;
+        this.choices = choices;
+        this.caller = caller;
+        Thread t = new Thread (this, "generator");
     }
     
-   private void generator(int numKeys, int keyLength, String choices) {
+   public void run() {
        Random pos = new Random();
         this.keys = new ArrayList<>();
         String[] choiceArray = this.RandomizeArray(choices.split(""));
@@ -58,6 +79,7 @@ public class GenerateKeys
                 break;
             }
         }
+        caller.populateKeys();
    }
    private  String[] RandomizeArray(String[] array){
         Random rgen = new Random();  // Random number generator         

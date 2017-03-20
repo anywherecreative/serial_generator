@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Main extends javax.swing.JFrame {
     List<String> keys;
+    GenerateKeys generator;
     /**
      * Creates new form Main
      */
@@ -363,28 +364,8 @@ public class Main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,error,"Error",JOptionPane.ERROR_MESSAGE);
             return;
         }
-        GenerateKeys generator = new GenerateKeys(numKeys, keyLength, keyChars);
-        String seperator = "";
-        if(SeperatorSymbolDropdown.getSelectedItem().toString().equals("space")) {
-            seperator = " ";
-        }
-        else if(SeperatorSymbolDropdown.getSelectedItem().toString().equals("dash")) {
-            seperator = "-";
-        }
-        else {
-             seperator = "_";   
-        }
-        if(this.isNumeric(SeperatorCharsDropDown.getSelectedItem().toString()) && Integer.parseInt(SeperatorCharsDropDown.getSelectedItem().toString()) > 0) {
-            this.keys = generator.getKeys(seperator, Integer.parseInt(SeperatorCharsDropDown.getSelectedItem().toString()));
-        }
-        else {
-            this.keys = generator.getKeys();
-        }
-        DefaultTableModel model = (DefaultTableModel) this.KeysTable.getModel();
-        model.setNumRows(0);
-        for(String key : this.keys) {
-            model.addRow(new Object[]{key});
-        }
+        this.generator = new GenerateKeys(this,numKeys, keyLength, keyChars);
+       
     }//GEN-LAST:event_generateButtonActionPerformed
 
     private void updateUseableChars(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateUseableChars
@@ -549,6 +530,30 @@ public class Main extends javax.swing.JFrame {
    
    public static int getNumber(String str) {
        return Integer.parseInt(str.replace(",",""));
+   }
+   
+   public void populateKeys() {
+        String seperator = "";
+        if(SeperatorSymbolDropdown.getSelectedItem().toString().equals("space")) {
+            seperator = " ";
+        }
+        else if(SeperatorSymbolDropdown.getSelectedItem().toString().equals("dash")) {
+            seperator = "-";
+        }
+        else {
+             seperator = "_";   
+        }
+        if(this.isNumeric(SeperatorCharsDropDown.getSelectedItem().toString()) && Integer.parseInt(SeperatorCharsDropDown.getSelectedItem().toString()) > 0) {
+            this.keys = generator.getKeys(seperator, Integer.parseInt(SeperatorCharsDropDown.getSelectedItem().toString()));
+        }
+        else {
+            this.keys = generator.getKeys();
+        }
+        DefaultTableModel model = (DefaultTableModel) this.KeysTable.getModel();
+        model.setNumRows(0);
+        for(String key : this.keys) {
+            model.addRow(new Object[]{key});
+        }
    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
